@@ -1,0 +1,9 @@
+{
+  "provider": "squarespace",
+  "features": {
+    "wishlist": false,
+    "search": false,
+    "customerAuth": false,
+    "customCheckout": false
+  }
+}

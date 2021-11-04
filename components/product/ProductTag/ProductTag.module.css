@@ -28,3 +28,8 @@
   @apply pt-2 px-6 pb-4 text-sm bg-primary text-accent-9
   font-semibold inline-block tracking-wide;
 }
+
+.root .discount {
+  @apply pt-2 px-6 pb-4 text-sm bg-secondary text-accent-2
+  font-semibold inline-block tracking-wide;
+}

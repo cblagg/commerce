@@ -16,7 +16,7 @@ interface ProductViewProps {
 }
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
-  const { price } = usePrice({
+  const { price, discount } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
@@ -28,8 +28,9 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
         <div className={cn(s.root, 'fit')}>
           <div className={cn(s.main, 'fit')}>
             <ProductTag
+              discount={discount}
               name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
+              price={`${price}`}
               fontSize={32}
             />
             <div className={s.sliderContainer}>

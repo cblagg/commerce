@@ -4,12 +4,14 @@ import s from './ProductTag.module.css'
 
 interface ProductTagProps {
   className?: string
+  discount?: string
   name: string
   price: string
   fontSize?: number
 }
 
 const ProductTag: React.FC<ProductTagProps> = ({
+  discount,
   name,
   price,
   className = '',
@@ -29,6 +31,7 @@ const ProductTag: React.FC<ProductTagProps> = ({
         </span>
       </h3>
       <div className={s.price}>{price}</div>
+      {discount ? <div className={s.discount}>-{discount}</div> : null}
     </div>
   )
 }
