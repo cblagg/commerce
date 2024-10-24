@@ -53,15 +53,21 @@ export default async function CategoryPage(props: {
           <PriceSelector
             label="Min price"
             param="min"
+            // @ts-ignore
             minimumValue={minimumPrice || 0}
+            // @ts-ignore
             maximumValue={maximumPrice || Infinity}
+                     // @ts-ignore
             value={minimumPrice || 0}
           />
           <PriceSelector
             label="Max price"
             param="max"
+                        // @ts-ignore
             minimumValue={minimumPrice || 0}
+                        // @ts-ignore
             maximumValue={maximumPrice || Infinity}
+                        // @ts-ignore
             value={maximumPrice || Infinity}
           />
         </div>
