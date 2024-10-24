@@ -448,10 +448,12 @@ export async function getCollectionProducts({
   const products = await getProducts({
     filter: (product) => {
       return !!product.tags.find(tag => replaceNonAlphanumeric(tag) === collection);
-    }
+    },
+    sortKey,
+    reverse
   });
 
-  return sortedProducts(products, sortKey, reverse);
+  return products
 }
 
 function sortedProducts(products: Product[], sortKey?: string, reverse?: boolean) {
@@ -576,7 +578,11 @@ export async function getProducts({
     data.products;
 
             // @ts-ignore
-  return filteredProducts.map(reshapeProduct);
+  return sortedProducts(
+    filteredProducts.map(reshapeProduct),
+    sortKey,
+    reverse
+  );
 }
 
 async function fetchSquarespace<T>({
