@@ -652,5 +652,5 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     revalidateTag(TAGS.products);
   }*/
 
-  // return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
+  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
