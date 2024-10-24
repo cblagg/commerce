@@ -515,18 +515,12 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     pathname: '/1.0/commerce/store_pages'
   })
 
-  return [
-    ...data.storePages
-      .filter(page => page.isEnabled)
-      .map(page => ({
-        title: page.title,
-        path: '/' + page.urlSlug
-      })),
-      {
-        title: 'Search',
-        path: '/search'
-      }
-  ];
+  return data.storePages
+    .filter(page => page.isEnabled)
+    .map(page => ({
+      title: page.title,
+      path: '/' + page.urlSlug
+    }));
 }
 
 export async function getPage(handle: string): Promise<Page | undefined> {

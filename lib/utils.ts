@@ -15,7 +15,7 @@ export const replaceNonAlphanumeric = (str: string, replacement: string = '-'): 
   str = str.replace(/\W+/g, replacement).toLowerCase();
 
 export const convertTagToCollection = (tag: string): Collection => ({
-  path: `/search/${replaceNonAlphanumeric(tag)}`,
+  path: `/shop/${replaceNonAlphanumeric(tag)}`,
   handle: tag.toLowerCase(),
   title: tag,
   description: '',
