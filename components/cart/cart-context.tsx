@@ -1,7 +1,7 @@
 'use client';
 
-import type { Cart, CartItem, Product, ProductVariant } from 'lib/shopify/types';
-import React, { createContext, use, useContext, useMemo, useOptimistic } from 'react';
+import type { Cart, CartItem, Product, ProductVariant } from 'lib/squarespace/types';
+import React, { createContext, useContext, useMemo, useOptimistic } from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
 
@@ -52,7 +52,7 @@ function createOrUpdateCartItem(
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
 
   return {
-    id: existingItem?.id,
+    id: existingItem?.id || product.id,
     quantity,
     cost: {
       totalAmount: {
@@ -138,7 +138,13 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
         ? currentCart.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
         : [...currentCart.lines, updatedItem];
 
-      return { ...currentCart, ...updateCartTotals(updatedLines), lines: updatedLines };
+      const updatedCart = {
+        ...currentCart,
+        ...updateCartTotals(updatedLines),
+        lines: updatedLines
+      };
+      
+      return updatedCart;
     }
     default:
       return currentCart;
@@ -147,12 +153,11 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
 
 export function CartProvider({
   children,
-  cartPromise
+  initialCart
 }: {
   children: React.ReactNode;
-  cartPromise: Promise<Cart | undefined>;
+  initialCart: Cart;
 }) {
-  const initialCart = use(cartPromise);
   const [optimisticCart, updateOptimisticCart] = useOptimistic(initialCart, cartReducer);
 
   const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {

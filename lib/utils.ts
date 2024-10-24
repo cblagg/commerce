@@ -1,4 +1,5 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
+import type { Collection } from './squarespace/types';
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
@@ -7,11 +8,29 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
   return `${pathname}${queryString}`;
 };
 
+export const fuzzyMatch = (haystack: string, needle: string) =>
+  haystack.toLowerCase().includes(needle.toLowerCase());
+
+export const replaceNonAlphanumeric = (str: string, replacement: string = '-'): string =>
+  str = str.replace(/\W+/g, replacement).toLowerCase();
+
+export const convertTagToCollection = (tag: string): Collection => ({
+  path: `/search/${replaceNonAlphanumeric(tag)}`,
+  handle: tag.toLowerCase(),
+  title: tag,
+  description: '',
+  seo: {
+    title: tag,
+    description: ''
+  },
+  updatedAt: new Date().toISOString()
+});
+
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
 export const validateEnvironmentVariables = () => {
-  const requiredEnvironmentVariables = ['SHOPIFY_STORE_DOMAIN', 'SHOPIFY_STOREFRONT_ACCESS_TOKEN'];
+  const requiredEnvironmentVariables = ['SQUARESPACE_API_KEY'];
   const missingEnvironmentVariables = [] as string[];
 
   requiredEnvironmentVariables.forEach((envVar) => {
@@ -22,18 +41,7 @@ export const validateEnvironmentVariables = () => {
 
   if (missingEnvironmentVariables.length) {
     throw new Error(
-      `The following environment variables are missing. Your site will not work without them. Read more: https://vercel.com/docs/integrations/shopify#configure-environment-variables\n\n${missingEnvironmentVariables.join(
-        '\n'
-      )}\n`
-    );
-  }
-
-  if (
-    process.env.SHOPIFY_STORE_DOMAIN?.includes('[') ||
-    process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
-  ) {
-    throw new Error(
-      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
+      `The following environment variables are missing. Your site will not work without them.`
     );
   }
 };

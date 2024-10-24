@@ -1,12 +1,19 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/squarespace';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+
+export async function addItem(prevState: any, {
+  selectedVariantId,
+  product,
+}: {
+  selectedVariantId: string | undefined;
+  product: Product;
+}) {  
   let cartId = (await cookies()).get('cartId')?.value;
 
   if (!cartId || !selectedVariantId) {
@@ -14,7 +21,12 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    const newCart = await addToCart(cartId, [{
+      merchandiseId: selectedVariantId,
+      quantity: 1,
+      product,
+    }]);
+    (await cookies()).set('cartId', newCart.id)
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';
@@ -22,6 +34,8 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
 }
 
 export async function removeItem(prevState: any, merchandiseId: string) {
+  console.log('removeItem')
+
   let cartId = (await cookies()).get('cartId')?.value;
 
   if (!cartId) {
@@ -55,6 +69,8 @@ export async function updateItemQuantity(
     quantity: number;
   }
 ) {
+  console.log('updateItemQuantity')
+
   let cartId = (await cookies()).get('cartId')?.value;
 
   if (!cartId) {
@@ -113,6 +129,8 @@ export async function redirectToCheckout() {
 }
 
 export async function createCartAndSetCookie() {
-  let cart = await createCart();
+  const existingCookieCartId = (await cookies()).get('cartId')?.value;
+
+  let cart = await createCart(existingCookieCartId);
   (await cookies()).set('cartId', cart.id!);
 }

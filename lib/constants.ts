@@ -28,4 +28,10 @@ export const TAGS = {
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
-export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2023-01/graphql.json';
+
+
+
+export const SQUARESPACE_COOKIE_EXPIRE = 30;
+export const SQUARESPACE_API_URL = 'https://api.squarespace.com';
+export const SQUARESPACE_API_KEY = process.env.SQUARESPACE_API_KEY;
+export const SQUARESPACE_ADMIN_ORIGIN = 'https://' + process.env.SQUARESPACE_ADMIN_ORIGIN;

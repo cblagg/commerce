@@ -1,12 +1,10 @@
 export default {
   images: {
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
-      }
-    ]
-  }
+    domains: [
+      'assets.squarespace.com',
+      'static1.squarespace.com',
+      'static.squarespace.com',
+      'images.squarespace-cdn.com'
+    ],
+  },
 };

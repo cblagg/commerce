@@ -1,4 +1,4 @@
-export interface ShopifyErrorLike {
+/*export interface ShopifyErrorLike {
   status: number;
   message: Error;
   cause?: Error;
@@ -25,3 +25,4 @@ function findError<T extends object>(error: T): boolean {
 
   return prototype === null ? false : findError(prototype);
 }
+*/

@@ -4,9 +4,15 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import { useProduct } from 'components/product/product-context';
-import { Product, ProductVariant } from 'lib/shopify/types';
+import { Product, ProductVariant } from 'lib/squarespace/types';
 import { useActionState } from 'react';
 import { useCart } from './cart-context';
+
+const sleep = () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 10000)
+  })
+}
 
 function SubmitButton({
   availableForSale,
@@ -27,7 +33,6 @@ function SubmitButton({
     );
   }
 
-  console.log(selectedVariantId);
   if (!selectedVariantId) {
     return (
       <button
@@ -69,7 +74,11 @@ export function AddToCart({ product }: { product: Product }) {
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const actionWithVariant = formAction.bind(null, {
+    selectedVariantId,
+    product,
+    variant,
+  });
   const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!;
 
   return (
