@@ -1,10 +1,11 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { SQUARESPACE_ADMIN_ORIGIN, SQUARESPACE_API_KEY, SQUARESPACE_API_URL } from '../constants';
 import { convertTagToCollection, fuzzyMatch, replaceNonAlphanumeric } from '../utils';
 import { Cart, Collection, Menu, Pagination, Product, ProductOption, SquarespaceProduct, SquarespaceProductImage, SquarespaceVariant } from './types';
 
 const PLACEHOLDER_CART_ID = '123';
 
-export async function createCart(existingCookieCartId): Promise<Cart> {
+export async function createCart(existingCookieCartId: string): Promise<Cart> {
   // NOTE: on Squarespace side we can't create cart without item params as
   // quantity, productEntityId
   if (existingCookieCartId && existingCookieCartId !== PLACEHOLDER_CART_ID) {
@@ -581,3 +582,33 @@ async function fetchSquarespace<T>({
     data: T
   }
 };
+
+
+export async function revalidate(req: NextRequest): Promise<NextResponse> {
+  /*const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
+  const productWebhooks = ['products/create', 'products/delete', 'products/update'];
+  const topic = (await headers()).get('x-shopify-topic') || 'unknown';
+  const secret = req.nextUrl.searchParams.get('secret');
+  const isCollectionUpdate = collectionWebhooks.includes(topic);
+  const isProductUpdate = productWebhooks.includes(topic);
+
+  if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
+    console.error('Invalid revalidation secret.');
+    return NextResponse.json({ status: 200 });
+  }
+
+  if (!isCollectionUpdate && !isProductUpdate) {
+    // We don't need to revalidate anything for any other topics.
+    return NextResponse.json({ status: 200 });
+  }
+
+  if (isCollectionUpdate) {
+    revalidateTag(TAGS.collections);
+  }
+
+  if (isProductUpdate) {
+    revalidateTag(TAGS.products);
+  }*/
+
+  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
+}
