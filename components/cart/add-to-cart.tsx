@@ -10,7 +10,7 @@ import { useCart } from './cart-context';
 
 const sleep = () => {
   return new Promise((resolve) => {
-    setTimeout(resolve, 10000)
+    setTimeout(resolve, 0)
   })
 }
 
@@ -86,6 +86,7 @@ export function AddToCart({ product }: { product: Product }) {
       action={async () => {
         addCartItem(finalVariant, product);
         await actionWithVariant();
+        await sleep();
       }}
     >
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />

@@ -14,14 +14,15 @@ export async function addItem(prevState: any, {
 }: {
   selectedVariantId: string | undefined;
   product: Product;
-}) {  
+}) {
   let cartId = (await cookies()).get('cartId')?.value;
 
   if (!cartId || !selectedVariantId) {
-    return 'Error adding item to cart';
+    // return 'Error adding item to cart';
   }
 
   try {
+    // @ts-ignore
     const newCart = await addToCart(cartId, [{
       merchandiseId: selectedVariantId,
       quantity: 1,

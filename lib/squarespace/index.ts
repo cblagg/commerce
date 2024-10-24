@@ -287,20 +287,21 @@ export async function addToCart(
   console.log(product, merchandiseId);
 
   let data;
-  if (cartId === PLACEHOLDER_CART_ID) {
+  // TODO @cblagg implement adding to existing cart
+  // if (!cartId || cartId === PLACEHOLDER_CART_ID) {
     data = await createCartWithItem({
       product,
       merchandiseId,
       quantity
     }, crumb)
-  } else {
+  /*} else {
     data = await updateCartWithItem({
       cartId,
       product,
       merchandiseId,
       quantity
     }, crumb)
-  }
+  }*/
 
           // @ts-ignore
   return reshapeCart(data.shoppingCart);  
@@ -613,8 +614,6 @@ async function fetchSquarespace<T>({
     body
   });
 
-  console.log(response);
-
   const data = await response.json();
 
   return {
@@ -653,5 +652,5 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     revalidateTag(TAGS.products);
   }*/
 
-  return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
+  // return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
