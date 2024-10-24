@@ -93,7 +93,20 @@ export type ProductOption = {
   values: string[];
 };
 
-/*export type Maybe<T> = T | null;
+
+
+
+
+
+
+
+
+
+
+
+
+// Defaults
+export type Maybe<T> = T | null;
 
 export type Connection<T> = {
   edges: Array<Edge<T>>;
@@ -206,8 +219,3 @@ export type ProductVariant = {
   }[];
   price: Money;
 };
-
-export type SEO = {
-  title: string;
-  description: string;
-};*/
