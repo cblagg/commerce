@@ -152,15 +152,6 @@ export type CartItem = {
   };
 };
 
-export type Collection = {
-  handle: string;
-  title: string;
-  description: string;
-  seo: SEO;
-  updatedAt: string;
-  path: string;
-};
-
 export type Image = {
   url: string;
   altText: string;
