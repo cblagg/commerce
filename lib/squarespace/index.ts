@@ -441,14 +441,21 @@ export async function getCollectionProducts({
   reverse,
   sortKey
 }: {
-  collection: string;
+  collection?: string | string[];
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
   const products = await getProducts({
-    filter: (product) => {
-      return !!product.tags.find(tag => replaceNonAlphanumeric(tag) === collection);
-    },
+    filter: collection ?
+      (product) => {
+        return !!product.tags.find(tag => {
+          if (Array.isArray(collection)) {
+            return collection.includes(replaceNonAlphanumeric(tag));
+          }
+          return replaceNonAlphanumeric(tag) === collection
+        });
+      } :
+      () => true,
     sortKey,
     reverse
   });
