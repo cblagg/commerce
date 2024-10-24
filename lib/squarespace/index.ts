@@ -579,6 +579,7 @@ export async function getProducts({
 
             // @ts-ignore
   return sortedProducts(
+    // @ts-ignore
     filteredProducts.map(reshapeProduct),
     sortKey,
     reverse
