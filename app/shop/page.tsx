@@ -44,7 +44,7 @@ export default async function SearchPage(props: {
           value={minimumPrice || 0}
         />
         <PriceSelector
-          label="Max price"
+          label="Maximum price"
           param="max"
                       // @ts-ignore
           minimumValue={minimumPrice || 0}
