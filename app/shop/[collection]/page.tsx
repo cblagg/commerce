@@ -51,7 +51,7 @@ export default async function CategoryPage(props: {
             Filters
           </h3>
           <PriceSelector
-            label="Minimum price"
+            label="Min price"
             param="min"
             // @ts-ignore
             minimumValue={minimumPrice || 0}
