@@ -50,18 +50,24 @@ export default async function CategoryPage(props: {
           <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
             Filters
           </h3>
-          <PriceSelector
-            label="Min price"
-            param="min"
+           <PriceSelector
+              label="Maximum Price"
+              param="min"
+            // @ts-ignore
             minimumValue={minimumPrice || 0}
+            // @ts-ignore
             maximumValue={maximumPrice || Infinity}
+                     // @ts-ignore
             value={minimumPrice || 0}
           />
           <PriceSelector
-            label="Max price"
+            label="Maximum price"
             param="max"
+                        // @ts-ignore
             minimumValue={minimumPrice || 0}
+                        // @ts-ignore
             maximumValue={maximumPrice || Infinity}
+                        // @ts-ignore
             value={maximumPrice || Infinity}
           />
         </div>

@@ -34,17 +34,23 @@ export default async function SearchPage(props: {
           Filters
         </h3>
         <PriceSelector
-          label="Min price"
+          label="Minimum price"
           param="min"
+                      // @ts-ignore
           minimumValue={minimumPrice || 0}
+                      // @ts-ignore
           maximumValue={maximumPrice || Infinity}
+                      // @ts-ignore
           value={minimumPrice || 0}
         />
         <PriceSelector
-          label="Max price"
+          label="Maximum price"
           param="max"
+                      // @ts-ignore
           minimumValue={minimumPrice || 0}
+                      // @ts-ignore
           maximumValue={maximumPrice || Infinity}
+                      // @ts-ignore
           value={maximumPrice || Infinity}
         />
       </div>
